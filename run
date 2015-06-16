@@ -1,0 +1,5 @@
+cd ..
+make
+make
+cd -
+dvipdf TDF.dvi

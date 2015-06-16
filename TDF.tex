@@ -1,0 +1,202 @@
+\documentclass[conference, a4paper,10pt,twocolumn]{IEEEtran}
+
+\usepackage{graphics} % for pdf, bitmapped graphics files
+\usepackage{epsfig} % for postscript graphics files
+\usepackage{mathptmx} % assumes new font selection scheme installed
+\usepackage{times} % assumes new font selection scheme installed
+\usepackage{amsmath} % assumes amsmath package installed
+\usepackage{amssymb}  % assumes amsmath package installed
+\usepackage{psfrag}
+\usepackage{subfigure}
+\usepackage{cite}
+\usepackage{amsthm}
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor IEEEtran}
+
+\begin{document}
+
+\title{TDF - Tagged Data Format \\ A simple approach for WSN monitoring}
+
+% avoiding spaces at the end of the author lines is not a problem with
+% conference papers because we don't use \thanks or \IEEEmembership
+
+% use only for invited papers
+%\specialpapernotice{(Invited Paper) }
+
+% make the title area
+\maketitle
+%\footnote{}
+\begin{abstract}
+
+We propose and explore the use of a very simple data format that can be used to enable 
+urgent applications for Wireless Sensor Networks (WSN), monitoring and data collection. 
+We also show how data can be distributed, shared stored and plotted on different platforms.
+The overall concept follows a straight forward unix-style format. Data is in ASCII
+and labeled with simple tags. 
+It's designed to be easy to debug with low complexity and protocol support. We found 
+this an alternative for monitoring applications and are using the format and ecosystem 
+in long term field tests and projects.
+
+
+\end{abstract}
+
+\begin{IEEEkeywords} 
+Internet of Things, Wireless sensor networks, WSN, Contiki, RIME
+ \end{IEEEkeywords}
+
+
+% no keywords
+
+% For peer review papers, you can put extra information on the cover
+% page as needed:
+% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
+%
+% for peerreview papers, inserts a page break and creates the second title.
+% Will be ignored for other modes.
+% \IEEEpeerreviewmaketitle
+
+\section{Introduction}
+\label{sec:intro}
+ 
+
+The motivation for this work is the need for innovative solutions to use the advances 
+WSN and IoT research. While some areas is still under development the need for the
+simplest solution to address urgent application was discovered. Also there were 
+strong needs for simple installation, including setup, minimal configuration and 
+simple debugging.
+
+Microcontrollers are available, even microcontrollers with builtin radio tranceivers 
+as AtMega128RFA1 ~\cite{ATMEGA}. Implementing a IEEE 802.15.4 ~\cite{802154} aslo operating 
+systems like Contiki is availbe ~\cite{CONTIKI} and mature. Contiki includes RIME ~\cite{CONTIKI} 
+which is a very small and simple protocol for WSN commonication.
+
+
+In section ~\ref{sec:needs} , we discuss a more detailed needs and requirement analysis for the use cases
+In section ~\ref{sec:implementation}, we present details about current implementation  
+In section ~\ref{sec:experince}, we present an installation and actual usage
+Finally, in section ~\ref{sec:conclusion}, we present our conclusions and suggestions for further studies.
+
+\section{Needs and requirements}
+%%\label{sec:Needs and requirements}
+\label{sec:needs}
+
+
+Different projects has motivated us for this work. One of the recent use cases is wireless sensor 
+networks for meteorological and environmental monitoring ~\cite{WIMEA}. 
+Such networks are often deployed in remote areas with little or no power supply~\cite{UBIQUI}.  
+Our low power hardware can be placed in deep sleep between measurements and transmissions.  The key 
+components in our design include  Contiki-OS~\cite{CONTIKI} running on Atmel ATMega128RF~\cite{ATMEGA} 
+integrating an MCU, an IEEE 802.15.4-compatible~\cite{802154} radio transceiver and an 8-channel 10-bit 
+AD-converter. This component has been used to design a WSN mote with some additional components such 
+as an EUI64 address chip, voltage converters, a temperature sensor, etc. When in deep sleep, the MCU 
+itself consumes ~1 $\mu$A and the entire mote ~10-15 $\mu$A. When transmitting, the mote consumes 
+~20mA. At 3V, this means ~60mW. 
+
+
+\section{Implementation}
+\label{sec:implementation}
+
+\subsection{Light-weight protocol ideas}
+Here
+
+\subsection{Network topology}
+Here
+
+\subsection{Report and sink nodes}
+Here
+
+\subsection{Power needs}
+Here
+
+\subsection{Data format}
+Here
+
+\subsection{Gateway and proxy}
+Here we discuss sensd ~\cite{sensd}
+
+\subsection{Plot and utilities}
+Here
+
+\subsection{App support}
+Here we discuss Read Sensors App  ~\cite{read-sensors}
+
+\subsection{Data repository and storage}
+Here
+
+\section{Experiences and Installations}
+\label{sec:experince}
+Here we discuss WIMEA ~\cite{WIMEA}  ~\cite{WIMEAREPORT}
+
+\section{Conclusions and further work}
+\label{sec:conclusion}
+
+We see research directions to follow:
+
+\begin{itemize}
+\item Access control of nodes and data. 
+
+\item Merge of data flows 
+
+\item If possible an more compact data representation and alinment to CoAP, MQTT etc
+
+\end{itemize}
+
+Issues for further study include: 
+
+\begin{itemize}
+\item Scalability 
+\itemHow size of WSN network.
+
+\item Security
+\itemHow data integrity and security
+
+\end{itemize} 
+
+The authors are currently involved in field studies including these issues
+
+\begin{thebibliography}{1}
+
+\bibitem{UBIQUI} Amos Nungu, Robert Olsson, Bj\"{o}rn Pehrson. \emph{Implementation of Inclusive Ubiquitous Access}. 
+Journal of Wireless Personal Communication, 2012
+
+\bibitem{802154}  \emph{IEEE 802.15.4}. 
+[Online]. Available: http://www.ieee802.org/15/pub/TG4.html. [Accessed: 21-February-2012]
+
+\bibitem{CONTIKI}  \emph{The Contiki Os.}. 
+[Online]. Available: http://www.contiki-os.org/. [Accessed: 29-February-2012].
+
+\bibitem{RIME} Adam Dunkels. \emph{Rime - a lightweight layered communication stack for sensor networks}.   In Proceedings of the European Conference on Wireless Sensor Networks (EWSN), Poster/Demo session, Delft, The Netherlands, January 2007.
+
+\bibitem{ATMEGA} Atmel Corporation. \emph{ATmega128RFA1}. 
+[Online]. Available: http://www.atmel.com/devices/ATMEGA128RFA1.aspx. [Accessed: 21-February-2012].
+
+\bibitem{RSS2} Radio Sensors mote. \emph{RSS2}. 
+[Online]. Available: http://radio-sensors.com/ [Accessed: 16-June-2015]
+
+\bibitem{LICCAP} Robert Olsson, Bj\"{o}rn Pehrson. \emph{Powering devices using ultra-capacitor batteries}
+[Publishing Pending]
+
+\bibitem{UBIQUISTATUS} Amos Nungu, Robert Olsson, Bj\"{o}rn Pehrson, Jiawei Kang, Daniel Kifetew, Alisher Rustamov. \emph{Inclusive Ubiquitous Access - A Status Report}. 
+Africom, Younde, Nov 2012
+
+\bibitem{SBN} SBN. \emph{IL2213 WSN-Projects Fall 2011.}. 
+[Online]. Available: http://www.tslab.ssvl.kth.se/csd/files/wsn/index.html. [Accessed: 21-February-2012].
+
+\bibitem{sensd}  \emph{sensd gateway}. 
+[Online]. Available: https://github.com/herjulf/sensd [Accessed: 16-June-2015]
+
+\bibitem{read-sensors}  \emph{Read-Sensors Android app}. 
+[Online]. Available: https://github.com/herjulf/Read-Sensors [Accessed: 16-June-2015]
+
+\bibitem{WIMEA}  \emph{WIMEA-ICT project.}. 
+[Online]. Available: http://wimea-ict.gfi.uib.no/. [Accessed: 21-March-2015].
+
+\bibitem{WIMEAREPORT}  \emph{WIMEA-ICT Progress Report}. 
+[Online]. Available: http://wimea-ict.gfi.uib.no/. [Accessed: 21-March-2015].
+
+\bibitem{ODROID} \emph{Odroid U3 and C1}
+[Online]. Available: http://www.hardkernel.com [Accessed 5-April-2015]
+\end{thebibliography}
+\end{document}
+
