@@ -98,7 +98,37 @@ itself consumes ~1 $\mu$A and the entire mote ~10-15 $\mu$A. When transmitting, 
 \label{sec:implementation}
 
 \subsection{Light-weight protocol ideas}
-Here
+
+IoT devices and sensors has three major mapping to the Internet. The 
+or node cen exposed via
+
+\begin{itemize}
+
+\item Native IP address. Ether IPv4 or IPv6. 6LowPAN constitutes IPv6
+
+
+\item Via a IP gateway. Gateway can of course have IPv4 or IPv6. Protocol
+can be any native IP protocols or IP protocols specially designed 
+for constrained applications like CoAP or MQTT etc. The gateway 
+translates between two standardized internet protocol stacks. 
+
+
+\item  Via IP gateway but in this case a non IP address are used on
+the nodes examles Contki's RIME, Zigbee . The gateway translates 
+between two protocol stacks. 
+
+\end{itemize}
+
+I our implementions we've he used. RIME for the WSN-nodes. I should
+be pointed out that TDF does not require this.
+
+RIME is a lightweigt protocol with a very low overhead. Header is 
+16 bit's. The current implementation uses a RIME broadcast network
+the 16 bit source address is composed by the unique EUI64 address
+chip on each node.
+
+
+
 
 \subsection{Network topology}
 Here
