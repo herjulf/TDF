@@ -31,9 +31,10 @@
 
 We propose and explore the use of a very simple concept including data encoding
 that can be used to enable urgent applications for Wireless Sensor Networks (WSN), 
-monitoring and data collection. We also show how data can be distributed, shared 
-stored and plotted on different platforms. The overall concept follows a straight 
-forward unix-style format. Data is in ASCII and labeled with simple tags. 
+for a wide range monitoring tasks and data collection. We also show how data can 
+be distributed, shared stored and plotted on different platforms. The overall 
+concept follows a straight forward unix-style format. Data is in ASCII and labeled 
+with simple tags. 
 It's designed to be easy to debug with low complexity and protocol support. We found 
 this an alternative for monitoring applications and are using the format and ecosystem 
 in long term field tests and projects.
@@ -42,7 +43,7 @@ in long term field tests and projects.
 \end{abstract}
 
 \begin{IEEEkeywords} 
-Internet of Things, Wireless sensor networks, WSN, Contiki, RIME
+Internet of Things, IoT, 6LowPAN, Wireless sensor networks, WSN, Contiki, RIME
  \end{IEEEkeywords}
 
 
@@ -62,9 +63,9 @@ Internet of Things, Wireless sensor networks, WSN, Contiki, RIME
 
 The motivation for this work is the need for innovative solutions to use the advances 
 WSN and IoT research. While some areas is still under development the need for the
-simplest solution to address urgent application was discovered. Also there were 
+working solutions to address urgent applications was discovered. Also there were 
 strong needs for simple installation, including setup, minimal configuration and 
-simple debugging.
+effective debugging.
 
 Microcontrollers are available, even microcontrollers with builtin radio tranceivers 
 as AtMega128RFA1 ~\cite{ATMEGA}. Implementing a IEEE 802.15.4 ~\cite{802154} aslo operating 
@@ -83,7 +84,7 @@ Finally, in section ~\ref{sec:conclusion}, we present our conclusions and sugges
 
 
 Different projects has motivated us for this work. One of the recent use cases is wireless sensor 
-networks for meteorological and environmental monitoring ~\cite{WIMEA}. 
+networks for monitoring and environmental monitoring.
 Such networks are often deployed in remote areas with little or no power supply~\cite{UBIQUI}.  
 Our low power hardware can be placed in deep sleep between measurements and transmissions.  The key 
 components in our design include  Contiki-OS~\cite{CONTIKI} running on Atmel ATMega128RF~\cite{ATMEGA} 
@@ -159,7 +160,6 @@ Here
 
 \section{Experiences and Installations}
 \label{sec:experince}
-Here we discuss WIMEA ~\cite{WIMEA}  ~\cite{WIMEAREPORT}
 
 \section{Conclusions and further work}
 \label{sec:conclusion}
@@ -222,11 +222,6 @@ Africom, Younde, Nov 2012
 \bibitem{read-sensors}  \emph{Read-Sensors Android app}. 
 [Online]. Available: https://github.com/herjulf/Read-Sensors [Accessed: 16-June-2015]
 
-\bibitem{WIMEA}  \emph{WIMEA-ICT project.}. 
-[Online]. Available: http://wimea-ict.gfi.uib.no/. [Accessed: 21-March-2015].
-
-\bibitem{WIMEAREPORT}  \emph{WIMEA-ICT Progress Report}. 
-[Online]. Available: http://wimea-ict.gfi.uib.no/. [Accessed: 21-March-2015].
 
 \bibitem{ODROID} \emph{Odroid U3 and C1}
 [Online]. Available: http://www.hardkernel.com [Accessed 5-April-2015]
