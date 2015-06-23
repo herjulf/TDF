@@ -16,7 +16,7 @@
 
 \begin{document}
 
-\title{TDF - Tagged Data Format \\ A simple approach for WSN monitoring}
+\title{A simple approach to WSN monitoring}
 
 % avoiding spaces at the end of the author lines is not a problem with
 % conference papers because we don't use \thanks or \IEEEmembership
@@ -29,11 +29,11 @@
 %\footnote{}
 \begin{abstract}
 
-We propose and explore the use of a very simple data format that can be used to enable 
-urgent applications for Wireless Sensor Networks (WSN), monitoring and data collection. 
-We also show how data can be distributed, shared stored and plotted on different platforms.
-The overall concept follows a straight forward unix-style format. Data is in ASCII
-and labeled with simple tags. 
+We propose and explore the use of a very simple concept including data encoding
+that can be used to enable urgent applications for Wireless Sensor Networks (WSN), 
+monitoring and data collection. We also show how data can be distributed, shared 
+stored and plotted on different platforms. The overall concept follows a straight 
+forward unix-style format. Data is in ASCII and labeled with simple tags. 
 It's designed to be easy to debug with low complexity and protocol support. We found 
 this an alternative for monitoring applications and are using the format and ecosystem 
 in long term field tests and projects.
@@ -119,10 +119,10 @@ between two protocol stacks.
 
 \end{itemize}
 
-I our implementions we've he used. RIME for the WSN-nodes. I should
-be pointed out that TDF does not require this.
+I our implementations we've he used. RIME for the WSN-nodes. I should
+be pointed out that our encoded data does not require this.
 
-RIME is a lightweigt protocol with a very low overhead. Header is 
+RIME is a lightweight protocol with a very low overhead. Header is 
 16 bit's. The current implementation uses a RIME broadcast network
 the 16 bit source address is composed by the unique EUI64 address
 chip on each node.
@@ -141,6 +141,9 @@ Here
 
 \subsection{Data format}
 Here
+
+Stateless vs stateful monitoring can be discussed. 
+
 
 \subsection{Gateway and proxy}
 Here we discuss sensd ~\cite{sensd}
