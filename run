@@ -2,4 +2,9 @@ cd ..
 make
 make
 cd -
-dvipdf TDF.dvi
+#dvipdf TDF.dvi
+#
+# To get fonts embedded. IEEE xplore .pdf check
+#
+dvips -Ppdf -G0 -tletter TDF.dvi
+ps2pdf -dCompatibilityLevel=1.4 -dPDFSETTINGS=/prepress TDF.ps TDF.pdf
