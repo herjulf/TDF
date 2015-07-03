@@ -162,7 +162,7 @@ In our case about 18mA. The new version of the AtMega128RF chip
 claims to have reduced consumption in listening mode. ~\cite{ATMEGA}
 
 While the sink node needs some power all reporting nodes 
-can spend almost it's time inte deepest sleep. Just to woken 
+can spend almost it's time in the deepest sleep. Just to woken 
 up by a timer read the disired sensors and go to the deepest 
 sleep again. 
 
@@ -179,6 +179,9 @@ in supercapacitor technology. In the mentioned work ~\cite{LICCAP}
 a reporting has shown to run 6 weeks reporting every minute
 on a single Lithium-Ion-Capacitor. The time to fully charge 
 a capacitor is in minutes and can be done by a solar panel.
+
+Of course it's the total power consumption thats effects 
+the operational time. 
 
 \begin{figure}
 \centering
@@ -203,9 +206,9 @@ Stateless vs stateful monitoring can be discussed.
 
 
 \subsection{Gateway}
-The gateway gives IP connectivity to the WSN network  in other words 
-all sensor sensor nodes. In our case we're using TCP for commnuction 
-with the gateway.  sensd ~\cite{sensd} is the used a gateway implemeted
+The gateway gives IP connectivity to the WSN network and all the 
+reachable sensor nodes. In our case we're using TCP for communication 
+with the gateway.  sensd ~\cite{sensd} is the used a gateway implemented
 as a unix style daemon. Typically sensd has a sink node connected over 
 USB. Sensd reads all data report from the sink node. 
 
@@ -219,8 +222,18 @@ telnet or web browsers can be used to monitor the data. Also there
 are specialized apps for telephones. 
 
 \subsection{Gateway and proxy}
+In some installations the WSN network is behind a NAT. 
+This impliess that the gateway can not be reached from 
+the Internet. To solve this problem functionality was 
+add sensd to forward data to remote server.
+If the server is globally reachable this works becomes an
+proxy function. TCP clients can connect the same way to 
+the proxy server to receive the sensors reports initiated 
+behind the NAT.
 
-
+Several WSN network can be merged inro a single proxy server. 
+This opens for interesting possibilities how subset of nodes 
+can selected etc.
 
 \subsection{Plot and utilities}
 Here
@@ -230,6 +243,8 @@ Here we discuss Read Sensors App  ~\cite{read-sensors}
 
 \subsection{Data repository and storage}
 Here
+
+\subsection{Multihop networking: Contolled relay}
 
 \section{Experiences and Installations}
 \label{sec:experince}
@@ -251,11 +266,10 @@ We see research directions to follow:
 Issues for further study include: 
 
 \begin{itemize}
-\item Scalability 
-\item How size of WSN network.
-
+\item Scalability of network
+\item Practical and robust implementation
 \item Security
-\item How data integrity and security
+\item Data integrity and security
 
 \end{itemize} 
 
