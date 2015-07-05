@@ -30,15 +30,33 @@
 %\footnote{}
 \begin{abstract}
 
-We propose and explore the use of a very simple concept including data encoding
-that can be used to enable urgent applications for Wireless Sensor Networks (WSN), 
-for a wide range monitoring tasks and data collection. We also show how data can 
-be distributed, shared stored and plotted on different platforms. The overall 
-concept follows a straight forward unix-style format. Data is in ASCII and labeled 
-with simple tags. 
-It's designed to be easy to debug with low complexity and protocol support. We found 
-this an alternative for monitoring applications and are using the format and ecosystem 
-in long term field tests and projects.
+We report on a simple wireless sensor network (WSN) architecture that is 
+being used for data acquisition and monitoring this includes a simple concept 
+for data exchange that is used to enable urgent applications for Wireless 
+Sensor Networks (WSN).
+We also show how data is distributed, shared stored and plotted on different 
+platforms. The overall concept follows a straight forward unix-style format. 
+Data is in ASCII and labeled with tags. 
+
+The architecture is based on basic WSN mechanisms avoiding complexity to 
+prioritize robustness and quick deployment and facilitate operation, management 
+and maintenance.
+
+The hardware core of the architecture is a wireless sensor network node 
+(mote) based on a micro-controller integrating an ADC and radio 
+transceiver, on-board sensors and means to connect external sensors. The 
+current firmware revision is based on the Contiki operating system and 
+implements RIME broadcasting and relaying. Connected to a gateway via a 
+serial connection (USB), the mote acts as a sink node forwarding all reports 
+received to the gateway controlled by a daemon using a flexible tagged 
+data format. 
+
+The gateway maintains alternative uplinks via TCP to facilitate 
+transmission of data to a central repository via Internet. The power 
+supply for the sensor nodes is based on ultra capacitors and solar 
+panels. End user intefaces include raw data access, data plots and 
+mobile apps. Our report also includes performance measurements and 
+experiences from field tests
 
 
 \end{abstract}
@@ -61,32 +79,86 @@ Internet of Things, IoT, 6LowPAN, Wireless sensor networks, WSN, Contiki, RIME
 \section{Introduction}
 \label{sec:intro}
  
+The motivation behind this work on wireless sensor networks comes from 
+our participation in a number projects involving data acquisition and 
+monitoring of important environment data at off-grid locations lacking 
+most sorts of infrastructure, especially network connectivity and power 
+supply, and having poor supply chains~\cite{UBIQUI}.
 
-The motivation for this work is the need for innovative solutions to use the advances 
-WSN and IoT research. While some areas is still under development the need for the
-working solutions to address urgent applications was discovered. Also there were 
-strong needs for simple installation, including setup, minimal configuration and 
-effective debugging.
+As a consequence, our focus has been on robustness, power consumption 
+and simplicity in installation, operation, management and maintenance.
 
-Microcontrollers are available, even microcontrollers with builtin radio transceivers 
-as AtMega128RFA1 ~\cite{ATMEGA}. Implementing a IEEE 802.15.4 ~\cite{802154} also operating 
-systems like Contiki is available ~\cite{CONTIKI} and mature. Contiki includes RIME ~\cite{CONTIKI} 
-which is a very small and simple protocol for WSN communication.
+Wireless sensor networks have been subject to research for almost two 
+decades and to standardization for at least one. Together with 
+applications and wired infrastructure, they are an important part of 
+Internet of Things when the protocols used are compatible with the 
+Internet protocol architecture. Various link level protocols have been 
+explored. Until recently, the IEEE 802.15.4~\cite{802154}  link level 
+standard [ieee802.15.4] has been dominating.
+
+On the network level, the IETF 6lowpan group has recently concluded its 
+effort to define a standard for transmitting IPv6 packets over 802.15.4 
+links ~\cite{6LOWPAN}. A new IETF group has been chartered with a wider scope 
+[6lo].
+
+On the routing side, there is a broad spectrum of solutions assuming 
+more or less complex network topologies.  A basic network topology, that 
+we have adopted in the work reported in this paper, uses one hop 
+broadcasting of all motes, except a sink mote connected to a gateway 
+with uplinks to Internet. In the wireless sensor network, between the 
+motes, we use a less power-consuming addressing scheme than ipv6 
+discussed further below. All motes, except the sink mote, spend most of 
+their time in a power-saving mode. They just wake up, do their 
+measurement, report and go back to deep sleep. 
+
+A simple mechanism to extend the network over one hop has been added.
+This requires the extending or relaying node to have radio in listening 
+mode as the network is unsynchronized. We have left the more complex 
+solutions based on relaying mesh network topologies and power-saving 
+radio duty cycling for further studies.
+
+On the application level, there is a need for a flexible data structure 
+for all sorts of sensor data to be transported between the motes and the 
+gateway and further on via uplinks to users. We have chosen to use plain 
+text in the reports and to include tags also in plain text defining the 
+data in the report, both between motes, in the file storage and over the 
+uplinks. The reports also include a time stamp and configurable 
+identifiers. 
+
+The protocol used over the uplink is plain TCP thus enabling apps like 
+nc, telnet, standard web-browser to directly monitor the raw data.
+Gateway can be entended to support other uplink protcols.
+
+The hardware and software system architectures developed for 
+implementation of wireless sensor networks include a wide spectrum of 
+embedded system hardware and operating systems for for structuring 
+microcontroller firmware.
+On the hardware side, we chose to use the ATMEL Atmega128RF component 
+integrating a microcontrollerm a 10bit ADC with 8 channels and an ieee 
+802.15.4 transceiver~\cite{ATMEGA}.
+On the software side, we evaluated two of the more commonly used, 
+Contiki~\cite{CONTIKI} and TinyOS~\cite{tinyos}. We found Contiki having 
+a smaller memory footprint and fitted our C, Linux and Github platforms 
+better. Contiki includes RIME, a small and simple adressing scheme for 
+WSN communication that we chose instead of ipv6. There is a new 
+interesting candidate, mbed, announced by the ARM consortium 
+~\cite{mbed}, but not yet available enough for our purposes in the 
+context of this paper.
 
 
 In section ~\ref{sec:needs} , we discuss a more detailed needs and requirement analysis for the use cases
 In section ~\ref{sec:implementation}, we present details about current implementation  
 In section ~\ref{sec:experince}, we present an installation and actual usage
 Finally, in section ~\ref{sec:conclusion}, we present our conclusions and suggestions for further studies.
- 
 \section{Needs and requirements}
 %%\label{sec:Needs and requirements}
 \label{sec:needs}
 
 
-Different projects has motivated us for this work. One of the recent use cases is wireless sensor 
-networks for monitoring and environmental monitoring.
-Such networks are often deployed in remote areas with little or no power supply~\cite{UBIQUI}.  
+There is a need for low-power devices to keep installations small and cost-effective also for 
+flexible power design. In many installations the temperatures are high. This decreasing 
+battery lifetime and adding the need maintenance and cost.
+
 Our low power hardware can be placed in deep sleep between measurements and transmissions.  The key 
 components in our design include  Contiki-OS~\cite{CONTIKI} running on Atmel ATMega128RF~\cite{ATMEGA} 
 integrating an MCU, an IEEE 802.15.4-compatible~\cite{802154} radio transceiver and an 8-channel 10-bit 
@@ -96,14 +168,14 @@ itself consumes ~1$\mu$A and the entire mote ~10-15$\mu$A. When transmitting, th
 ~20mA. At 3V, this means ~60mW. 
 
 The performance and coverage of the IEEE 802.15.4 depending on a lot of factors. Antenna, output
-power and of course transmission disturbances but with PCB-antenna 100m line of sight and beyond 
-is possible. This can have negative impacts in high density networks but for simple and small and
-medium scale installations this can an advantage.
+power and of course transmission disturbances but with the used PCB-antenna 100m line of sight and 
+beyond is possible. The long range can have negative impact in high density networks but for simple 
+and small and medium scale installations this can an advantage.
 
 
-\section{Implementation}
-\label{sec:implementation}
-
+\section{Architecture}
+\label{sec:architecture}
+ 
 
 \subsection{Network topology}
 
@@ -132,17 +204,27 @@ be pointed out that our TDF data tagging does not require this.
 
 RIME is a lightweight protocol with a very low overhead. Header is 
 16 bit's. The current implementation uses a RIME broadcast network
-the 16 bit source address is composed by the unique EUI64 address
-chip on each node this to get an unique RIME-address. 
+the 16 bit source address is composed by a globally unique EUI64 
+address chip on located every node this to get an unique RIME-
+address. 
+
+
+
+\section{Implementation}
+\label{sec:implementation}
+
+
 
 \subsection{Report and sink nodes}
 
-A report or broadcast node report the sensor data from local 
-node, temp, RH or any more other connected instruments or 
-sensors.
+A report or broadcast node sends the sensor data from local 
+node, temp, RH etc, or any more other connected instruments 
+or sensors.
 
-This report is done periodically. The radio is only active
-during the sending the report which is a very short time.
+This report is sent periodically via a configurable report
+interval. The radio is only active during the sending the 
+report which is a very short time.
+
 Figure ~\ref{fig:bcast} illustrates this.
 
 As a result the whole Micro Controller Unit (MCU) be in deep 
@@ -163,7 +245,7 @@ claims to have reduced consumption in listening mode. ~\cite{ATMEGA}
 
 While the sink node needs some power all reporting nodes 
 can spend almost it's time in the deepest sleep. Just to woken 
-up by a timer read the disired sensors and go to the deepest 
+up by a timer read the desired sensors and go to the deepest 
 sleep again. 
 
 The memory oscilloscope traces in figure~\ref{fig:bcast} 
@@ -210,12 +292,13 @@ The gateway gives IP connectivity to the WSN network and all the
 reachable sensor nodes. In our case we're using TCP for communication 
 with the gateway.  sensd ~\cite{sensd} is the used a gateway implemented
 as a unix style daemon. Typically sensd has a sink node connected over 
-USB. Sensd reads all data report from the sink node. 
+serial/USB. Sensd reads all data report from the sink node. 
 
-When a TCP client is connected to sensd all reports received are 
-distributed the client using TCP. There can be may TCP clients 
-connected to the gateway at the same. All shaing the same data.
-Send acts like a hub or rendez-vous point for the WSN  network.
+When a TCP client is connected to sensd all the WSN received reports  
+are distributed th the client(s) using TCP. There can be many TCP 
+clients connected to the gateway at the same. All shaing the same data.
+Sensd acts like a hub or rendez-vous point for data sharing of the 
+WSN network.
 
 As data is encoded in ASCII simple TCP utilities like nc, netcat, 
 telnet or web browsers can be used to monitor the data. Also there 
