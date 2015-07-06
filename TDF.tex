@@ -151,6 +151,30 @@ Finally, in section ~\ref{sec:conclusion}, we present our conclusions and sugges
 \label{sec:needs}
 
 
+\subsection{Information structure}
+
+
+The service provided by the WSN architecture presented in this paper is 
+data capture and transport from sensors to users. The users could access 
+the data via a central repository or in real-time by subscribing to the 
+data as it is collected by the gateway of from each of the motes the 
+sensor node to the central repository.
+The sensors could be of many different types and produce many different 
+kind of values, pulses to be counted, analog signals to be converted to 
+digital and direct digital data of different sorts. One specific sensor 
+node could have a mix of sensors
+To avoid a complex fixed format requiring separate meta data for each 
+node, we have chosen to use a flexible plain ASCII text-based 
+information structure using unique tags for each of the data items in a 
+report. The advantage is simplicity and flexibility. The disadvantage is 
+that the tags take space in the 128 byte reports over the ieee 802.15.4 
+links and thus adds to the energy required in the transmission of reports.
+
+\subsection{Robustness}
+
+
+\subsection{Power efficiency}
+
 There is a need for low-power devices to keep installations small and cost-effective also for 
 flexible power design. In many installations the temperatures are high. This decreasing 
 battery lifetime and adding the need maintenance and cost.
