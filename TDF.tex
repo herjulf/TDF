@@ -30,34 +30,29 @@
 %\footnote{}
 \begin{abstract}
 
-We report on a simple wireless sensor network (WSN) architecture that is 
-being used for data acquisition and monitoring this includes a simple concept 
-for data exchange that is used to enable urgent applications for Wireless 
-Sensor Networks (WSN).
-We also show how data is distributed, shared stored and plotted on different 
-platforms. The overall concept follows a straight forward unix-style format. 
-Data is in ASCII and labeled with tags. 
-
-The architecture is based on basic WSN mechanisms avoiding complexity to 
-prioritize robustness and quick deployment and facilitate operation, management 
-and maintenance.
-
-The hardware core of the architecture is a wireless sensor network node 
-(mote) based on a micro-controller integrating an ADC and radio 
+We report on a wireless sensor network (WSN) architecture including a 
+local sensor network, a gateway and uplinks to Internet. We also report 
+on experiences from its use in data acquisition and monitoring applications.
+The architecture is based on basic rather than advanced WSN mechanisms 
+to avoid complexity, prioritize robustness and quick deployment and to 
+facilitate operation, management and maintenance.
+The protocol architecture involves a unified information structure for 
+sensor data from mote to central repository and power saving light 
+weight protocols in the local sensor network part.
+The hardware core of the architecture is a wireless sensor network node
+(mote) based on a micro-controller integrating an ADC and radio
 transceiver, on-board sensors and means to connect external sensors. The 
-current firmware revision is based on the Contiki operating system and 
-implements RIME broadcasting and relaying. Connected to a gateway via a 
-serial connection (USB), the mote acts as a sink node forwarding all reports 
-received to the gateway controlled by a daemon using a flexible tagged 
-data format. 
-
-The gateway maintains alternative uplinks via TCP to facilitate 
-transmission of data to a central repository via Internet. The power 
-supply for the sensor nodes is based on ultra capacitors and solar 
-panels. End user intefaces include raw data access, data plots and 
-mobile apps. Our report also includes performance measurements and 
-experiences from field tests
-
+current Contiki-based firmware revision implements broadcasting and 
+relaying. When connected to a gateway via a serial connection (USB), the 
+mote acts as a sink node forwarding all reports received to the gateway 
+controlled by a daemon using the unified and flexible tagged  data format.
+The gateway maintains alternative uplinks and TCP streams to facilitate
+transmission of data to a central repository via Internet.
+The power supply for the sensor nodes is based on ultra capacitors and 
+solar panels.
+End user interfaces include raw data access, data plots and
+mobile apps. Our report also includes performance measurements and
+experiences from field tests.
 
 \end{abstract}
 
